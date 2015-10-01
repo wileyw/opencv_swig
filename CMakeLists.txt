@@ -1,0 +1,7 @@
+cmake_minimum_required (VERSION 2.8)
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+project (Example)
+find_package( OpenCV REQUIRED )
+add_executable(Example main.cpp test_function.cpp)
+#add_executable(Example facedetect.cpp)
+target_link_libraries( Example ${OpenCV_LIBS} )
