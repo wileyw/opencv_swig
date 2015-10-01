@@ -1,7 +1,22 @@
 cmake_minimum_required (VERSION 2.8)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
-project (Example)
 find_package( OpenCV REQUIRED )
-add_executable(Example main.cpp test_function.cpp)
-#add_executable(Example facedetect.cpp)
-target_link_libraries( Example ${OpenCV_LIBS} )
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+#project (Example)
+#add_executable(Example main.cpp test_function.cpp)
+#target_link_libraries( Example ${OpenCV_LIBS} )
+
+# This is a CMake example for Python
+
+FIND_PACKAGE(SWIG REQUIRED)
+INCLUDE(${SWIG_USE_FILE})
+
+FIND_PACKAGE(Ruby REQUIRED)
+INCLUDE_DIRECTORIES(${RUBY_INCLUDE_PATH})
+INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR})
+
+SET(CMAKE_SWIG_FLAGS "")
+
+SET_SOURCE_FILES_PROPERTIES(test_function.i PROPERTIES CPLUSPLUS ON)
+SET_SOURCE_FILES_PROPERTIES(test_function.i PROPERTIES SWIG_FLAGS "-includeall")
+SWIG_ADD_MODULE(example ruby test_function.i test_function.cpp)
+SWIG_LINK_LIBRARIES(example ${RUBY_LIBRARY} ${OpenCV_LIBS})

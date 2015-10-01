@@ -7,9 +7,6 @@
 #include <iterator>
 #include <stdio.h>
 
-using namespace std;
-using namespace cv;
-
 struct FaceLocation
 {
 	int x;
@@ -18,4 +15,4 @@ struct FaceLocation
 	int height;
 };
 
-vector<FaceLocation> detectFaces( vector<char>& jpg, double scale);
+std::vector<FaceLocation> detectFaces( std::vector<char>& jpg, double scale);
