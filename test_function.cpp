@@ -23,8 +23,7 @@ vector<FaceLocation> detectFaces(vector<char>& jpg, double scale)
     }
 
     CascadeClassifier cascade;
-    if( !cascade.load( cascadeName ) )
-    {
+    if( !cascade.load( cascadeName ) ){
         cerr << "ERROR: Could not load classifier cascade" << endl;
         return faceLocations;
     }
@@ -39,15 +38,9 @@ vector<FaceLocation> detectFaces(vector<char>& jpg, double scale)
     equalizeHist( smallImg, smallImg );
 
     cascade.detectMultiScale( smallImg, faces,
-        1.1, 2, 0
-        //|CV_HAAR_FIND_BIGGEST_OBJECT
-        //|CV_HAAR_DO_ROUGH_SEARCH
-        |CV_HAAR_SCALE_IMAGE
-        ,
-        Size(30, 30) );
+        1.1, 2, CV_HAAR_SCALE_IMAGE, Size(30, 30) );
     faceLocations.resize(faces.size());
-    for( int i = 0; i < faces.size(); i++)
-    {
+    for( int i = 0; i < faces.size(); i++){
         faceLocations[i].x = faces[i].x;
         faceLocations[i].y = faces[i].y;
         faceLocations[i].width = faces[i].width;
